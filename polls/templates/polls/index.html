@@ -1,0 +1,23 @@
+{% extends "polls/base.html" %}
+
+{% block content %}
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <br><br>
+    <div class="row">
+      <h4 class="header col s12 light orange-text">Current Polls</h4>
+    </div>
+    <div class="collection">
+      {% if latest_question_list %}
+          {% for question in latest_question_list %}
+            <a class="collection-item" href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+          {% endfor %}
+      {% else %}
+          <p>No polls are available.</p>
+      {% endif %}
+    </div>
+    <br><br>
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "polls/base.html" %}
+
+{% block content %}
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <br><br>
+    <div class="row">
+      <h4 class="header col s12 light orange-text">{{ question.question_text }}</h4>
+    </div>
+      {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+      <div class="collection">
+      <form action="{% url 'polls:vote' question.id %}" method="post">
+      {% csrf_token %}
+      {% for choice in question.choice_set.all %}
+      <p>
+          <input class="with-gap" type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+          <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+      </p>
+      {% endfor %}
+    </div>
+      <!--<input class="waves-effect waves-light btn" type="submit" value="Vote" />-->
+      <button class="btn waves-effect waves-light" type="submit" value="Vote">Vote<i class="material-icons right">send</i>
+      </button>
+      </form>
+
+    <br><br>
+
+  </div>
+</div>
+{% endblock %}

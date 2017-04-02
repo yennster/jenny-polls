@@ -1,0 +1,71 @@
+{% extends "polls/base.html" %}
+
+{% block content %}
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <br><br>
+    <div class="row">
+      <h4 class="header col s12 light orange-text">{{ question.question_text }}</h4>
+    </div>
+    <div class="row">
+      <canvas id="myChart" width="100%" height="40"></canvas>
+      <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: [{% for choice in question.choice_set.all %} "{{ choice.choice_text }}", {% endfor %}],
+                    datasets: [{
+                        label: 'Choices',
+                        data: [{% for choice in question.choice_set.all %} {{ choice.votes }}, {% endfor %}],
+                        backgroundColor: [
+                          "#29b6f6",
+                          "#ff9800",
+                          "#F44336",
+                          "#9C27B0",
+                          "#009688",
+                          "#4CAF50",
+                          "#E91E63",
+                          "#FFEB3B",
+                          "#9E9E9E"
+                        ],
+                        hoverBackgroundColor: [
+                          "#29b6f6",
+                          "#ff9800",
+                          "#F44336",
+                          "#9C27B0",
+                          "#009688",
+                          "#4CAF50",
+                          "#E91E63",
+                          "#FFEB3B",
+                          "#9E9E9E"
+                        ]
+                    }]
+                }
+            });
+      </script>
+      <!--<table class="highlight">
+        <thead>
+          <tr>
+              <th>Choice</th>
+              <th>Votes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for choice in question.choice_set.all %}
+          <tr>
+            <td>{{ choice.choice_text }}</td>
+            <td>{{ choice.votes }} vote{{ choice.votes|pluralize }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>-->
+    </div>
+    <div class="row center">
+      <a class="waves-effect waves-light teal btn" href="{% url 'polls:detail' question.id %}">Vote again?</a>&nbsp;&nbsp;&nbsp;&nbsp;
+      <a class="waves-effect waves-light teal lighten-3 btn" href="/polls"><i class="material-icons center">home</i></a>
+    </div>
+    <br><br>
+  </div>
+</div>
+{% endblock %}
