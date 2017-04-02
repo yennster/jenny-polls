@@ -1,2 +1,2 @@
-# jennys-polls
+# jenny-polls
 Django Polls web app
