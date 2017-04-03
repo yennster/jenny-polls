@@ -14,7 +14,7 @@
             var chart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: [{% for choice in question.choice_set.all %} "{{ choice.choice_text.decode("utf-8", "replace") }}", {% endfor %}],
+                    labels: [{% for choice in question.choice_set.all %} "{{ choice.choice_text }}", {% endfor %}],
                     datasets: [{
                         label: 'Choices',
                         data: [{% for choice in question.choice_set.all %} {{ choice.votes }}, {% endfor %}],
