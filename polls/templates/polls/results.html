@@ -14,7 +14,7 @@
             var chart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: [{% for choice in question.choice_set.all %} "{{ choice.choice_text }}", {% endfor %}],
+                    labels: [{% for choice in question.choice_set.all %} "{{ choice.choice_text.decode("utf-8", "replace") }}", {% endfor %}],
                     datasets: [{
                         label: 'Choices',
                         data: [{% for choice in question.choice_set.all %} {{ choice.votes }}, {% endfor %}],
@@ -63,7 +63,7 @@
     </div>
     <div class="row center">
       <a class="waves-effect waves-light teal btn" href="{% url 'polls:detail' question.id %}">Vote again?</a>&nbsp;&nbsp;&nbsp;&nbsp;
-      <a class="waves-effect waves-light teal lighten-3 btn" href="/polls"><i class="material-icons center">home</i></a>
+      <a class="waves-effect waves-light teal lighten-3 btn" href="/polls">Home</a>
     </div>
     <br><br>
   </div>
